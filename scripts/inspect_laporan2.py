@@ -11,7 +11,7 @@ conn = psycopg2.connect(
     port=int(os.environ.get("PG_PORT", "5432")),
     user=os.environ.get("PG_USER", "postgres"),
     password=password,
-    dbname=os.environ.get("PG_DATABASE", "siitpartisi"),
+    dbname=os.environ.get("PG_DATABASE", "example_db"),
     connect_timeout=10,
 )
 cur = conn.cursor()

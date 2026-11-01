@@ -177,7 +177,7 @@ Create new configuration.
   "source": {
     "host": "localhost",
     "port": 5432,
-    "database": "siitpartisi",
+    "database": "example_db",
     "user": "postgres",
     "password": "***"
   },
@@ -315,7 +315,7 @@ List all active configurations.
       "id": 1,
       "name": "laporan-production",
       "description": "...",
-      "source_database": "siitpartisi",
+      "source_database": "example_db",
       "target_type": "opensearch",
       "version": 2,
       "created_at": "2026-06-19T10:00:00Z",
@@ -362,7 +362,7 @@ Test PostgreSQL connection.
 {
   "host": "localhost",
   "port": 5432,
-  "database": "siitpartisi",
+  "database": "example_db",
   "user": "postgres",
   "password": "***"
 }

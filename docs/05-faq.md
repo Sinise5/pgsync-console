@@ -75,7 +75,7 @@ Manual: `cat /tmp/laporan-sync-checkpoint.txt`
 
 ## Q: Error `collation version mismatch`?
 
-**A:** Warning harmless. Fix: `ALTER DATABASE siitpartisi REFRESH COLLATION VERSION;`
+**A:** Warning harmless. Fix: `ALTER DATABASE example_db REFRESH COLLATION VERSION;`
 
 ---
 

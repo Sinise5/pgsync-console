@@ -1,7 +1,7 @@
 # Migrasi PGSync: pgoutput → wal2json
 
 **Tanggal:** 2026-06-08
-**Target:** PostgreSQL 15.14 @ localhost:5432/siitpartisi
+**Target:** PostgreSQL 15.14 @ localhost:5432/example_db
 **PGSync:** 7.0.5
 **Status:** READY FOR EXECUTION
 
@@ -144,7 +144,7 @@ SELECT slot_name, plugin, slot_type, active
 FROM pg_replication_slots;
 
 -- Drop slot lama
-SELECT pg_drop_replication_slot('siitpartisi_laporan');
+SELECT pg_drop_replication_slot('pgsync_laporan');
 ```
 
 ### 4.3 Create replication slot dengan wal2json
@@ -152,7 +152,7 @@ SELECT pg_drop_replication_slot('siitpartisi_laporan');
 ```sql
 SELECT *
 FROM pg_create_logical_replication_slot(
-    'siitpartisi_laporan',
+    'pgsync_laporan',
     'wal2json'
 );
 ```
@@ -161,7 +161,7 @@ Expected output:
 ```
      slot_name       |    lsn
 ---------------------+-----------
- siitpartisi_laporan | 0/XXXXXX
+ pgsync_laporan | 0/XXXXXX
 ```
 
 ### 4.4 Drop publication (opsional — tidak dipakai wal2json)
@@ -184,18 +184,18 @@ cd /Volumes/Sinise/work/qti/pgsync-production
 # 1. Audit PostgreSQL
 source .env
 docker run --rm --network host postgres:16 psql \
-  "host=localhost dbname=siitpartisi user=postgres password=$PG_PASSWORD" \
+  "host=localhost dbname=example_db user=postgres password=$PG_PASSWORD" \
   -c "SELECT name FROM pg_available_extensions WHERE name='wal2json';"
 
 # 2. Drop slot lama
 docker run --rm --network host postgres:16 psql \
-  "host=localhost dbname=siitpartisi user=postgres password=$PG_PASSWORD" \
-  -c "SELECT pg_drop_replication_slot('siitpartisi_laporan');"
+  "host=localhost dbname=example_db user=postgres password=$PG_PASSWORD" \
+  -c "SELECT pg_drop_replication_slot('pgsync_laporan');"
 
 # 3. Create slot baru
 docker run --rm --network host postgres:16 psql \
-  "host=localhost dbname=siitpartisi user=postgres password=$PG_PASSWORD" \
-  -c "SELECT * FROM pg_create_logical_replication_slot('siitpartisi_laporan','wal2json');"
+  "host=localhost dbname=example_db user=postgres password=$PG_PASSWORD" \
+  -c "SELECT * FROM pg_create_logical_replication_slot('pgsync_laporan','wal2json');"
 
 # 4. Rebuild image
 docker compose down
@@ -240,17 +240,17 @@ Starting logical replication stream (wal2json)...
 ### 6.2 Replication slot active
 ```bash
 docker run --rm --network host postgres:16 psql \
-  "host=localhost dbname=siitpartisi user=postgres password=$PG_PASSWORD" \
+  "host=localhost dbname=example_db user=postgres password=$PG_PASSWORD" \
   -c "SELECT slot_name, plugin, active, restart_lsn
       FROM pg_replication_slots
-      WHERE slot_name='siitpartisi_laporan';"
+      WHERE slot_name='pgsync_laporan';"
 ```
 
 **Expected:**
 ```
      slot_name       |  plugin  | active | restart_lsn
 ---------------------+----------+--------+-------------
- siitpartisi_laporan | wal2json | t      | 0/XXXXXX
+ pgsync_laporan | wal2json | t      | 0/XXXXXX
 ```
 
 ### 6.3 End-to-end CDC test
@@ -307,8 +307,8 @@ docker compose stop laporan-cdc
 
 # Recreate slot dengan plugin lama
 docker run --rm --network host postgres:16 psql \
-  "host=localhost dbname=siitpartisi user=postgres password=$PG_PASSWORD" \
-  -c "SELECT * FROM pg_create_logical_replication_slot('siitpartisi_laporan','pgoutput');"
+  "host=localhost dbname=example_db user=postgres password=$PG_PASSWORD" \
+  -c "SELECT * FROM pg_create_logical_replication_slot('pgsync_laporan','pgoutput');"
 
 # Restore patch script
 git checkout HEAD~1 -- scripts/patch-pgsync-plugin.sh
@@ -330,15 +330,15 @@ docker compose up -d laporan-cdc
 ```bash
 # Drop slot apapun yang ada
 docker run --rm --network host postgres:16 psql \
-  "host=localhost dbname=siitpartisi user=postgres password=$PG_PASSWORD" \
+  "host=localhost dbname=example_db user=postgres password=$PG_PASSWORD" \
   -c "SELECT pg_drop_replication_slot(slot_name)
       FROM pg_replication_slots
-      WHERE slot_name='siitpartisi_laporan';"
+      WHERE slot_name='pgsync_laporan';"
 
 # Create slot dengan test_decoding
 docker run --rm --network host postgres:16 psql \
-  "host=localhost dbname=siitpartisi user=postgres password=$PG_PASSWORD" \
-  -c "SELECT * FROM pg_create_logical_replication_slot('siitpartisi_laporan','test_decoding');"
+  "host=localhost dbname=example_db user=postgres password=$PG_PASSWORD" \
+  -c "SELECT * FROM pg_create_logical_replication_slot('pgsync_laporan','test_decoding');"
 
 # Restore original PGSync (no patch)
 git checkout HEAD~2 -- scripts/patch-pgsync-plugin.sh

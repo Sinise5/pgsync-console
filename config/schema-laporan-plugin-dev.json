@@ -1,5 +1,5 @@
 {
-  "database": "siitpartisi",
+  "database": "example_db",
   "index": "laporan",
   "plugins": ["LaporanDenormalize"],
   "nodes": {

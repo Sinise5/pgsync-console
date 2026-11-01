@@ -1,6 +1,6 @@
 [
   {
-    "database": "siitpartisi",
+    "database": "example_db",
     "index": "laporan",
     "nodes": {
       "table": "laporan",

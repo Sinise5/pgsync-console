@@ -437,7 +437,7 @@ JOIN configurations c ON c.id = cs.config_id;
 ```
 config_id | name    | status  | docs_synced | last_sync_time
 ----------|---------|---------|-------------|------------------
-5         | siit-x  | running | 2000        | 2026-06-21 05:15:30
+5         | example-project  | running | 2000        | 2026-06-21 05:15:30
 ```
 
 ---

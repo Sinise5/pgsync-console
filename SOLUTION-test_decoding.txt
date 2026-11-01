@@ -31,10 +31,10 @@ QUICKSTART.md                      - Updated execution steps
 EXECUTION STEPS
 ---------------
 1. Drop old slot:
-   SELECT pg_drop_replication_slot('siitpartisi_laporan');
+   SELECT pg_drop_replication_slot('pgsync_laporan');
 
 2. Create test_decoding slot:
-   SELECT * FROM pg_create_logical_replication_slot('siitpartisi_laporan','test_decoding');
+   SELECT * FROM pg_create_logical_replication_slot('pgsync_laporan','test_decoding');
 
 3. Build images:
    docker build --no-cache -f Dockerfile.base -t pgsync-laporan:base .

@@ -63,7 +63,7 @@ class LaporanDenormalize(Plugin):
             pg_port = int(os.environ.get("PG_PORT", "5432"))
             pg_user = os.environ.get("PG_USER", "postgres")
             pg_pass = os.environ.get("PG_PASSWORD", "")
-            pg_db = os.environ.get("PG_DATABASE", "siitpartisi")
+            pg_db = os.environ.get("PG_DATABASE", "example_db")
             if not pg_pass:
                 raise RuntimeError("Set PG_PASSWORD before using LaporanDenormalize")
             self._pg_conn = psycopg2.connect(

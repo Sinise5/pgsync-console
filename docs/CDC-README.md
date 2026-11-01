@@ -121,7 +121,7 @@ HTTP Request (POST /api/cdc/5/start)
 ```
 Configuration.schema_config (JSON):
 {
-  "database": "siitpartisi",
+  "database": "example_db",
   "index": "laporan2",           ← OpenSearch index name
   "nodes": {
     "table": "laporan",          ← PostgreSQL table name
@@ -229,7 +229,7 @@ CDC Service:
 
 4. **Monitor Progress**
    - **CDC Pipeline box (biru):**
-     - Source: PostgreSQL localhost:5432 → DB: siitpartisi
+     - Source: PostgreSQL localhost:5432 → DB: example_db
      - Target: OpenSearch localhost:9200 → Index: laporan2
 
    - **Monitoring cards:**

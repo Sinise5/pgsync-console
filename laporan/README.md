@@ -18,7 +18,7 @@ export PG_HOST=localhost
 export PG_PORT=5432
 export PG_USER=postgres
 export PG_PASSWORD=your_postgres_password_here
-export PG_DATABASE=siitpartisi
+export PG_DATABASE=example_db
 
 export ELASTICSEARCH_SCHEME=https
 export ELASTICSEARCH_HOST=localhost

@@ -154,7 +154,7 @@ function ConfigSection() {
 name             │ production-postgres-01     │ Unique config name
 source_host      │ localhost               │ PostgreSQL host
 source_port      │ 5432                       │ PostgreSQL port
-source_db        │ siitmaster                 │ Source database name
+source_db        │ source_db                 │ Source database name
 source_user      │ pgsync_user                │ PostgreSQL user
 source_password  │ ********                   │ PostgreSQL password
 target_host      │ localhost               │ OpenSearch host
@@ -577,7 +577,7 @@ function LineageSection() {
       <div class="bg-gray-100 rounded p-3 text-xs font-mono leading-relaxed">
 {`┌─────────────────┐           ┌─────────────────┐
 │ PostgreSQL:     │           │ OpenSearch:     │
-│ siitmaster      │           │ pgsync-orders   │
+│ source_db      │           │ pgsync-orders   │
 │                 │──────────▶│                 │
 │  ├─ users       │           │  ├─ user        │
 │  ├─ orders      │ Sync      │  ├─ order       │

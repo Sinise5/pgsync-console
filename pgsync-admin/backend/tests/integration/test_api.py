@@ -45,7 +45,7 @@ class TestConfigAPI:
             name="api_test",
             source_pg_host="localhost",
             source_pg_port=5432,
-            source_pg_database="siitpartisi",
+            source_pg_database="example_db",
             source_pg_user="postgres",
             source_pg_password="encrypted",
             target_type="opensearch",

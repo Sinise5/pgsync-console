@@ -304,7 +304,7 @@ Expected: 1-2 "Skipping logical message" entries
 ```bash
 # Generate 1000 INSERTs
 for i in {1..1000}; do
-  psql -h localhost -U postgres -d siitpartisi \
+  psql -h localhost -U postgres -d example_db \
     -c "INSERT INTO laporan (title) VALUES ('Load test $i');"
 done
 ```

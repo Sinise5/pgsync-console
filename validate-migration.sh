@@ -56,8 +56,8 @@ echo ""
 # Test 4: Replication slot exists and active
 echo "[4/7] Replication slot"
 SLOT_CHECK=$(docker run --rm --network host postgres:16 psql \
-  "host=localhost dbname=siitpartisi user=postgres password=$PG_PASSWORD" \
-  -t -c "SELECT plugin, active FROM pg_replication_slots WHERE slot_name='siitpartisi_laporan';" 2>&1)
+  "host=localhost dbname=example_db user=postgres password=$PG_PASSWORD" \
+  -t -c "SELECT plugin, active FROM pg_replication_slots WHERE slot_name='pgsync_laporan';" 2>&1)
 
 if echo "$SLOT_CHECK" | grep -q "wal2json"; then
     echo "✅ Slot plugin = wal2json"

@@ -24,7 +24,7 @@ Fix: wal2json plugin = text JSON output, kompatibel dengan parser.
 
 EXECUTION (di server dgn Docker):
 1. Install wal2json di PG: sudo apt-get install postgresql-15-wal2json
-2. Drop old slot: pg_drop_replication_slot('siitpartisi_laporan')
+2. Drop old slot: pg_drop_replication_slot('pgsync_laporan')
 3. Create new slot: pg_create_logical_replication_slot('...','wal2json')
 4. Build: docker build --no-cache -f Dockerfile.base -t pgsync-laporan:base .
 5. Build: docker build --no-cache -t pgsync-laporan:app .

@@ -129,7 +129,7 @@ SELECT
     lsn,
     xid,
     data
-FROM pg_logical_slot_peek_changes('siitpartisi_laporan', NULL, NULL)
+FROM pg_logical_slot_peek_changes('pgsync_laporan', NULL, NULL)
 LIMIT 50;
 ```
 

@@ -69,7 +69,7 @@ def sample_config_data():
         "name": "test_config",
         "source_host": "localhost",
         "source_port": 5432,
-        "source_database": "siitpartisi",
+        "source_database": "example_db",
         "source_user": "postgres",
         "source_tables": ["public.laporan"],
         "target_host": "localhost",

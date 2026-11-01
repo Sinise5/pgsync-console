@@ -67,14 +67,14 @@ pgsync-slot-create:
 	@echo "=== Create replication slot ==="
 	@echo "Run this SQL on PostgreSQL server (localhost):"
 	@echo ""
-	@echo "SELECT pg_create_logical_replication_slot('siitpartisi_laporan', 'test_decoding');"
+	@echo "SELECT pg_create_logical_replication_slot('pgsync_laporan', 'test_decoding');"
 	@echo ""
 
 pgsync-slot-drop:
 	@echo "=== Drop replication slot ==="
 	@echo "Run this SQL on PostgreSQL server (localhost):"
 	@echo ""
-	@echo "SELECT pg_drop_replication_slot('siitpartisi_laporan');"
+	@echo "SELECT pg_drop_replication_slot('pgsync_laporan');"
 	@echo ""
 
 ## =============================================================================

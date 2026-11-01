@@ -32,7 +32,7 @@ PG_HOST = os.environ.get("PG_HOST", "localhost")
 PG_PORT = int(os.environ.get("PG_PORT", "5432"))
 PG_USER = os.environ.get("PG_USER", "postgres")
 PG_PASSWORD = os.environ.get("PG_PASSWORD", "")
-PG_DB = os.environ.get("PG_DATABASE", "siitpartisi")
+PG_DB = os.environ.get("PG_DATABASE", "example_db")
 
 OS_HOST = os.environ.get("ELASTICSEARCH_HOST", "localhost")
 OS_PORT = int(os.environ.get("ELASTICSEARCH_PORT", "9200"))

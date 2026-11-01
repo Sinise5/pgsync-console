@@ -21,7 +21,7 @@ Generate PGSync schema JSON + plugin code from config.
 ```json
 {
   "pgsync_schema": {
-    "database": "siitpartisi",
+    "database": "example_db",
     "index": "laporan",
     "nodes": {
       "table": "laporan",

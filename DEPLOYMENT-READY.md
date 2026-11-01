@@ -194,7 +194,7 @@ SELECT
     restart_lsn,
     confirmed_flush_lsn
 FROM pg_replication_slots
-WHERE slot_name = 'siitpartisi_laporan';
+WHERE slot_name = 'pgsync_laporan';
 ```
 
 Expected: `active = t`
