@@ -1,0 +1,41 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Local audit artifacts
+/anti-slop/
+
+# Python
+.venv/
+.uv_cache/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# JavaScript
+node_modules/
+dist/
+
+# Logs and local databases
+*.log
+*.sqlite
+*.sqlite3
+pgsync_admin.db
+*.db
+*.db-*
+*.db.*
+*.bak
+.db_kodim_messages
+
+# OS and IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.hermes/

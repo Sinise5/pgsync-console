@@ -1,0 +1,159 @@
+[
+  {
+    "database": "siitpartisi",
+    "index": "laporan",
+    "nodes": {
+      "table": "laporan",
+      "schema": "public",
+      "columns": [
+        "id",
+        "nomor",
+        "judul",
+        "narasi",
+        "catatan",
+        "komentar",
+        "status",
+        "approve",
+        "tanggal_laporan",
+        "created_date",
+        "updated_date",
+        "unique_id",
+        "status_pengajuan_penghapusan",
+        "jenis_id",
+        "klasifikasi_id",
+        "urgensi_id",
+        "created_by_id",
+        "updated_by_id",
+        "pelapor_id",
+        "tujuan_id",
+        "satuan_kerja_id",
+        "neraca_kebenaran_id",
+        "neraca_kepercayaan_id"
+      ],
+      "children": [
+        {
+          "table": "laporan_isi",
+          "schema": "public",
+          "columns": [
+            "id",
+            "laporan_id",
+            "isi",
+            "apa",
+            "mengapa",
+            "bagaimana",
+            "kapan",
+            "lokasi_id"
+          ],
+          "relationship": {
+            "type": "one_to_many",
+            "variant": "object",
+            "foreign_key": {
+              "parent": "id",
+              "child": "laporan_id"
+            }
+          },
+          "children": [
+            {
+              "table": "laporan_isi_tokoh",
+              "schema": "public",
+              "columns": [
+                "isi_id",
+                "tokoh_id"
+              ],
+              "relationship": {
+                "type": "one_to_many",
+                "variant": "object",
+                "foreign_key": {
+                  "parent": "id",
+                  "child": "isi_id"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "table": "laporan_tembusan",
+          "schema": "public",
+          "columns": [
+            "laporan_id",
+            "satuankerja_id"
+          ],
+          "relationship": {
+            "type": "one_to_many",
+            "variant": "object",
+            "foreign_key": {
+              "parent": "id",
+              "child": "laporan_id"
+            }
+          }
+        },
+        {
+          "table": "laporan_aspek",
+          "schema": "public",
+          "columns": [
+            "laporan_id",
+            "referensi_id"
+          ],
+          "relationship": {
+            "type": "one_to_many",
+            "variant": "object",
+            "foreign_key": {
+              "parent": "id",
+              "child": "laporan_id"
+            }
+          }
+        },
+        {
+          "table": "laporan_lampiran",
+          "schema": "public",
+          "columns": [
+            "laporan_id",
+            "jenis",
+            "file",
+            "catatan",
+            "realfile",
+            "created_date"
+          ],
+          "relationship": {
+            "type": "one_to_many",
+            "variant": "object",
+            "foreign_key": {
+              "parent": "id",
+              "child": "laporan_id"
+            }
+          }
+        },
+        {
+          "table": "laporan_masuk",
+          "schema": "public",
+          "columns": [
+            "laporan_id",
+            "satuan_kerja_id"
+          ],
+          "relationship": {
+            "type": "one_to_many",
+            "variant": "object",
+            "foreign_key": {
+              "parent": "id",
+              "child": "laporan_id"
+            }
+          }
+        }
+      ]
+    },
+    "plugins": [
+      "LaporanDenormalize"
+    ],
+    "enable_logical_replication": true,
+    "enable_dynamic_settings": true,
+    "database_url": "postgresql://${PG_USER}:${PG_PASSWORD}@${PG_HOST}:${PG_PORT}/${PG_DATABASE}",
+    "opensearch": {
+      "host": "${ELASTICSEARCH_HOST}",
+      "port": "${ELASTICSEARCH_PORT}",
+      "user": "${ELASTICSEARCH_USER}",
+      "password": "${ELASTICSEARCH_PASSWORD}",
+      "use_ssl": true,
+      "verify_certs": true
+    }
+  }
+]

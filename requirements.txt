@@ -1,0 +1,3 @@
+pgsync==7.0.5
+opensearch-py==3.0.0
+psycopg2-binary==2.9.11

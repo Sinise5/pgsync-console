@@ -1,0 +1,17 @@
+[project]
+name = "pgsync-production"
+version = "7.0.5"
+description = "PGSync: PostgreSQL → OpenSearch sync for laporan"
+license = "MIT"
+requires-python = ">=3.12"
+dependencies = [
+    "pgsync==7.3.0",
+    "opensearch-py==3.2.0",
+    "psycopg2-binary==2.9.12",
+]
+
+[tool.uv.workspace]
+members = ["pgsync-admin/backend", "search-api"]
+
+[tool.uv]
+dev-dependencies = []

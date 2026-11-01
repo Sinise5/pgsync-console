@@ -1,0 +1,3 @@
+FROM postgres:16-alpine
+
+COPY local-postgres-seed.sql /docker-entrypoint-initdb.d/01-seed.sql

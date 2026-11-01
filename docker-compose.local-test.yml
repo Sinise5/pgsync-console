@@ -1,0 +1,44 @@
+services:
+  demo-postgres:
+    build:
+      context: ./pgsync-admin/demo
+      dockerfile: Dockerfile.demo-postgres
+    profiles: [local-test]
+    environment:
+      POSTGRES_DB: pgsync_demo
+      POSTGRES_USER: pgsync_demo
+      POSTGRES_PASSWORD: pgsync_demo_password
+    command: ["postgres", "-c", "wal_level=logical", "-c", "max_replication_slots=10", "-c", "max_wal_senders=10"]
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - demo-postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pgsync_demo -d pgsync_demo"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+    restart: unless-stopped
+
+  demo-opensearch:
+    image: opensearchproject/opensearch:2.19.3
+    profiles: [local-test]
+    environment:
+      discovery.type: single-node
+      DISABLE_SECURITY_PLUGIN: "true"
+      OPENSEARCH_JAVA_OPTS: "-Xms512m -Xmx512m"
+    ports:
+      - "127.0.0.1:19200:9200"
+    volumes:
+      - demo-opensearch-data:/usr/share/opensearch/data
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS 'http://127.0.0.1:9200/_cluster/health?wait_for_status=yellow&timeout=1s' >/dev/null"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 45s
+    restart: unless-stopped
+
+volumes:
+  demo-postgres-data:
+  demo-opensearch-data:

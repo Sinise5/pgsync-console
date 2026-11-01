@@ -1,0 +1,36 @@
+services:
+  backend:
+    build:
+      context: ./pgsync-admin/backend
+    image: pgsync-admin-backend:local
+    env_file:
+      - .env
+    environment:
+      API_HOST: 0.0.0.0
+      API_PORT: 3505
+      SQLITE_DB_PATH: /data/pgsync_admin.db
+      CLICKHOUSE_HOST: ${ADMIN_CLICKHOUSE_HOST:-host.docker.internal}
+      CLICKHOUSE_PORT: ${CLICKHOUSE_PORT:-9000}
+      CLICKHOUSE_USER: ${CLICKHOUSE_USER:-default}
+      CLICKHOUSE_DATABASE: ${CLICKHOUSE_DATABASE:-pgsync_admin}
+    init: true
+    volumes:
+      - backend-data:/data
+    ports:
+      - "127.0.0.1:3505:3505"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./pgsync-admin/frontend
+    image: pgsync-admin-frontend:local
+    init: true
+    ports:
+      - "127.0.0.1:3507:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  backend-data:

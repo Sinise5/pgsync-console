@@ -1,0 +1,112 @@
+[
+  {
+    "database": "siitpartisi",
+    "index": "laporan",
+    "nodes": {
+      "table": "laporan",
+      "schema": "public",
+      "columns": [
+        "id",
+        "catatan",
+        "created_date",
+        "updated_date",
+        "nomor",
+        "judul",
+        "narasi",
+        "status",
+        "approve",
+        "komentar",
+        "created_by_id",
+        "jenis_id",
+        "klasifikasi_id",
+        "pelapor_id",
+        "tujuan_id",
+        "updated_by_id",
+        "urgensi_id",
+        "tanggal_laporan",
+        "satuan_kerja_id",
+        "neraca_kebenaran_id",
+        "neraca_kepercayaan_id",
+        "unique_id",
+        "status_pengajuan_penghapusan"
+      ]
+    },
+    "settings": {
+      "number_of_shards": 3,
+      "number_of_replicas": 1
+    },
+    "mapping": {
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "catatan": {
+          "type": "text"
+        },
+        "created_date": {
+          "type": "date"
+        },
+        "updated_date": {
+          "type": "date"
+        },
+        "nomor": {
+          "type": "keyword"
+        },
+        "judul": {
+          "type": "text"
+        },
+        "narasi": {
+          "type": "text"
+        },
+        "status": {
+          "type": "integer"
+        },
+        "approve": {
+          "type": "boolean"
+        },
+        "komentar": {
+          "type": "text"
+        },
+        "created_by_id": {
+          "type": "integer"
+        },
+        "jenis_id": {
+          "type": "integer"
+        },
+        "klasifikasi_id": {
+          "type": "integer"
+        },
+        "pelapor_id": {
+          "type": "integer"
+        },
+        "tujuan_id": {
+          "type": "integer"
+        },
+        "updated_by_id": {
+          "type": "integer"
+        },
+        "urgensi_id": {
+          "type": "integer"
+        },
+        "tanggal_laporan": {
+          "type": "date"
+        },
+        "satuan_kerja_id": {
+          "type": "integer"
+        },
+        "neraca_kebenaran_id": {
+          "type": "integer"
+        },
+        "neraca_kepercayaan_id": {
+          "type": "integer"
+        },
+        "unique_id": {
+          "type": "keyword"
+        },
+        "status_pengajuan_penghapusan": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+]

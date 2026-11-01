@@ -1,0 +1,71 @@
+MIGRASI TEST_DECODING - FINAL SOLUTION
+=======================================
+
+ROOT CAUSE ANALYSIS
+-------------------
+1. pgoutput (binary protocol) -> UnicodeDecodeError: 'utf-8' codec can't decode byte 0xf0
+2. wal2json (JSON format) -> LogicalSlotParseError: No match for row: {"change":[...]}
+3. PGSync 7.0.5 parser built for test_decoding TEXT format (BEGIN 12345, table: INSERT: col[type] val)
+
+SOLUTION
+--------
+Plugin: test_decoding (built-in PostgreSQL 15, no extension needed)
+Patch: Remove options={"include-xids":"1"} yang tidak support di PG15
+
+WHY TEST_DECODING
+-----------------
+✅ Built-in PostgreSQL 15 - tidak perlu install extension
+✅ Text format - PGSync parser sudah dibuat untuk ini
+✅ Regex match TX_BOUNDARY_RE, LOGICAL_SLOT_SUFFIX work out-of-box
+✅ Production-stable sejak PostgreSQL 9.4
+
+FILES CHANGED
+-------------
+Dockerfile.base                    - Patch baked-in, verify PLUGIN=test_decoding
+Dockerfile                         - Clean (no runtime patch)
+docker-compose.yml                 - No runtime patch calls
+scripts/patch-pgsync-baked.py      - Build-time patch: remove include-xids option
+Makefile                           - Slot plugin: test_decoding
+QUICKSTART.md                      - Updated execution steps
+
+EXECUTION STEPS
+---------------
+1. Drop old slot:
+   SELECT pg_drop_replication_slot('siitpartisi_laporan');
+
+2. Create test_decoding slot:
+   SELECT * FROM pg_create_logical_replication_slot('siitpartisi_laporan','test_decoding');
+
+3. Build images:
+   docker build --no-cache -f Dockerfile.base -t pgsync-laporan:base .
+   docker build --no-cache -t pgsync-laporan:app .
+
+4. Start CDC:
+   docker compose down
+   docker compose up -d laporan-cdc
+
+5. Verify:
+   docker logs pgsync-laporan-cdc -f
+
+EXPECTED OUTPUT
+---------------
+Build: [OK] PLUGIN = test_decoding
+Log:   Starting logical replication stream (test_decoding)...
+Slot:  plugin = test_decoding, active = t
+
+NO ERRORS:
+- UnicodeDecodeError (pgoutput issue)
+- LogicalSlotParseError (wal2json format mismatch)
+- unrecognized option (include-xids removed)
+
+VERIFICATION
+------------
+docker exec pgsync-laporan-cdc python3 -c "import pgsync.constants; print(pgsync.constants.PLUGIN)"
+Expected: test_decoding
+
+ROLLBACK
+--------
+git checkout HEAD~1 -- Dockerfile.base scripts/patch-pgsync-baked.py
+docker build --no-cache -f Dockerfile.base -t pgsync-laporan:base .
+docker build --no-cache -t pgsync-laporan:app .
+docker compose up -d laporan-cdc

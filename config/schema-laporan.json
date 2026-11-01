@@ -1,0 +1,188 @@
+[
+  {
+    "database": "siitpartisi",
+    "index": "laporan",
+    "nodes": {
+      "table": "laporan",
+      "schema": "public",
+      "columns": [
+        "id",
+        "nomor",
+        "judul",
+        "narasi",
+        "catatan",
+        "komentar",
+        "status",
+        "approve",
+        "tanggal_laporan",
+        "created_date",
+        "updated_date",
+        "unique_id",
+        "status_pengajuan_penghapusan"
+      ]
+    },
+    "settings": {
+      "number_of_shards": 3,
+      "number_of_replicas": 1
+    },
+    "mapping": {
+      "properties": {
+        "id":                         { "type": "integer" },
+        "nomor":                      { "type": "keyword" },
+        "judul":                      { "type": "text", "analyzer": "standard" },
+        "narasi":                     { "type": "text", "analyzer": "standard" },
+        "catatan":                    { "type": "text" },
+        "komentar":                   { "type": "text" },
+        "status":                     { "type": "integer" },
+        "approve":                    { "type": "boolean" },
+        "tanggal_laporan":            { "type": "date" },
+        "created_date":               { "type": "date" },
+        "updated_date":               { "type": "date" },
+        "unique_id":                  { "type": "keyword" },
+        "status_pengajuan_penghapusan": { "type": "boolean" },
+
+        "jenis": {
+          "type": "object",
+          "properties": {
+            "id":   { "type": "integer" },
+            "nama": { "type": "keyword" }
+          }
+        },
+        "klasifikasi": {
+          "type": "object",
+          "properties": {
+            "id":   { "type": "integer" },
+            "nama": { "type": "keyword" }
+          }
+        },
+        "urgensi": {
+          "type": "object",
+          "properties": {
+            "id":   { "type": "integer" },
+            "nama": { "type": "keyword" }
+          }
+        },
+        "created_by": {
+          "type": "object",
+          "properties": {
+            "id":   { "type": "integer" },
+            "nama": { "type": "keyword" }
+          }
+        },
+        "updated_by": {
+          "type": "object",
+          "properties": {
+            "id":   { "type": "integer" },
+            "nama": { "type": "keyword" }
+          }
+        },
+        "pelapor": {
+          "type": "object",
+          "properties": {
+            "id":   { "type": "integer" },
+            "nama": { "type": "keyword" }
+          }
+        },
+        "tujuan": {
+          "type": "object",
+          "properties": {
+            "id":   { "type": "integer" },
+            "nama": { "type": "keyword" }
+          }
+        },
+        "satuan_kerja": {
+          "type": "object",
+          "properties": {
+            "id":   { "type": "integer" },
+            "nama": { "type": "keyword" }
+          }
+        },
+        "neraca_kebenaran": {
+          "type": "object",
+          "properties": {
+            "id":   { "type": "integer" },
+            "nama": { "type": "keyword" }
+          }
+        },
+        "neraca_kepercayaan": {
+          "type": "object",
+          "properties": {
+            "id":   { "type": "integer" },
+            "nama": { "type": "keyword" }
+          }
+        },
+
+        "tembusan": {
+          "type": "nested",
+          "properties": {
+            "id":   { "type": "integer" },
+            "nama": { "type": "keyword" }
+          }
+        },
+        "aspek": {
+          "type": "nested",
+          "properties": {
+            "id":   { "type": "integer" },
+            "nama": { "type": "keyword" }
+          }
+        },
+        "lampiran": {
+          "type": "nested",
+          "properties": {
+            "id":         { "type": "integer" },
+            "jenis":      { "type": "keyword" },
+            "file":       { "type": "keyword" },
+            "catatan":    { "type": "text" },
+            "realfile":   { "type": "keyword" },
+            "created_date": { "type": "date" }
+          }
+        },
+        "satuan_kerja_list": {
+          "type": "nested",
+          "properties": {
+            "id":   { "type": "integer" },
+            "nama": { "type": "keyword" }
+          }
+        },
+        "laporan_masuk": {
+          "type": "nested",
+          "properties": {
+            "id":             { "type": "integer" },
+            "satuan_kerja": {
+              "type": "object",
+              "properties": {
+                "id":   { "type": "integer" },
+                "nama": { "type": "keyword" }
+              }
+            }
+          }
+        },
+
+        "isi_list": {
+          "type": "nested",
+          "properties": {
+            "isi":       { "type": "text" },
+            "apa":       { "type": "text" },
+            "mengapa":   { "type": "text" },
+            "bagaimana": { "type": "text" },
+            "kapan":     { "type": "date" },
+            "lokasi": {
+              "type": "object",
+              "properties": {
+                "id":   { "type": "integer" },
+                "nama": { "type": "keyword" }
+              }
+            },
+            "tokoh": {
+              "type": "nested",
+              "properties": {
+                "id":   { "type": "integer" },
+                "nama": { "type": "keyword" }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

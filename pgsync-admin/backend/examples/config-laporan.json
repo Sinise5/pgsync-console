@@ -1,0 +1,45 @@
+{
+  "name": "laporan-sync",
+  "description": "PGSync configuration for laporan (intelligence reports) table",
+  "source": {
+    "host": "localhost",
+    "port": 5432,
+    "database": "siitpartisi",
+    "user": "postgres",
+    "password": "replace_with_source_password"
+  },
+  "target": {
+    "type": "opensearch",
+    "host": "localhost",
+    "port": 9200,
+    "user": "elastic",
+    "password": "replace_with_target_password",
+    "use_ssl": true,
+    "verify_certs": true
+  },
+  "schema": {
+    "main_table": "laporan",
+    "main_columns": ["id", "nomor", "judul", "uraian", "tanggal_mulai", "tanggal_akhir"],
+    "children": [
+      {
+        "table": "laporan_isi",
+        "fields": ["id", "laporan_id", "isi", "apa", "mengapa"],
+        "relationship": {
+          "type": "one_to_many",
+          "variant": "object",
+          "foreign_key": {"parent": "id", "child": "laporan_id"}
+        }
+      },
+      {
+        "table": "laporan_tembusan",
+        "fields": ["id", "laporan_id", "tembusan"],
+        "relationship": {
+          "type": "one_to_many",
+          "variant": "array",
+          "foreign_key": {"parent": "id", "child": "laporan_id"}
+        }
+      }
+    ],
+    "fk_mappings": {}
+  }
+}

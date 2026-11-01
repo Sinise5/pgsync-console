@@ -1,0 +1,17 @@
+services:
+  search-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: laporan-search-api:latest
+    init: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${SEARCH_API_PORT:-18080}:8080"
+    environment:
+      OPENSEARCH_HOST: ${OPENSEARCH_HOST:?Set OPENSEARCH_HOST in the environment}
+      OPENSEARCH_PORT: ${OPENSEARCH_PORT:-9200}
+      OPENSEARCH_USER: ${OPENSEARCH_USER:-admin}
+      OPENSEARCH_PASSWORD: ${OPENSEARCH_PASSWORD:?Set OPENSEARCH_PASSWORD in the environment}
+      OPENSEARCH_INDEX: ${OPENSEARCH_INDEX:-laporan}
+      OPENSEARCH_VERIFY_CERTS: ${OPENSEARCH_VERIFY_CERTS:-true}

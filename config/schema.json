@@ -1,0 +1,60 @@
+[
+  {
+    "database": "db_kodim",
+    "index": "messages",
+    "nodes": {
+      "table": "messages",
+      "schema": "public",
+      "columns": [
+        "id",
+        "wa_message_id",
+        "group_id",
+        "user_id",
+        "chat_id",
+        "sender_id",
+        "timestamp",
+        "type",
+        "text",
+        "has_media",
+        "media_id",
+        "is_duplicate",
+        "is_forwarded",
+        "schema_version",
+        "raw_event_id",
+        "created_at",
+        "tenant_id",
+        "kodim_id",
+        "latitude",
+        "longitude"
+      ]
+    },
+    "settings": {
+      "number_of_shards": 1,
+      "number_of_replicas": 0
+    },
+    "mapping": {
+      "properties": {
+        "id": { "type": "keyword" },
+        "wa_message_id": { "type": "keyword" },
+        "group_id": { "type": "keyword" },
+        "user_id": { "type": "keyword" },
+        "chat_id": { "type": "keyword" },
+        "sender_id": { "type": "keyword" },
+        "timestamp": { "type": "long" },
+        "type": { "type": "keyword" },
+        "text": { "type": "text" },
+        "has_media": { "type": "boolean" },
+        "media_id": { "type": "keyword" },
+        "is_duplicate": { "type": "boolean" },
+        "is_forwarded": { "type": "boolean" },
+        "schema_version": { "type": "keyword" },
+        "raw_event_id": { "type": "keyword" },
+        "created_at": { "type": "date" },
+        "tenant_id": { "type": "keyword" },
+        "kodim_id": { "type": "keyword" },
+        "latitude": { "type": "float" },
+        "longitude": { "type": "float" }
+      }
+    }
+  }
+]

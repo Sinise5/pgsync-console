@@ -1,0 +1,82 @@
+{
+  "database": "siitpartisi",
+  "index": "laporan",
+  "plugins": ["LaporanDenormalize"],
+  "nodes": {
+    "table": "laporan",
+    "schema": "public",
+    "columns": [
+      "id", "nomor", "judul", "narasi",
+      "catatan", "komentar",
+      "status", "approve",
+      "tanggal_laporan",
+      "created_date", "updated_date",
+      "unique_id",
+      "jenis_id", "klasifikasi_id", "urgensi_id",
+      "created_by_id", "updated_by_id",
+      "pelapor_id",
+      "tujuan_id", "satuan_kerja_id",
+      "neraca_kebenaran_id", "neraca_kepercayaan_id",
+      "sumber_id"
+    ],
+    "children": [
+      {
+        "table": "laporan_isi",
+        "columns": ["isi", "apa", "mengapa", "bagaimana", "kapan", "lokasi_id"],
+        "relationship": {
+          "type": "foreign_key",
+          "from_column": "laporan_id",
+          "to_column": "id"
+        },
+        "children": [
+          {
+            "table": "laporan_isi_tokoh",
+            "columns": ["tokoh_id"],
+            "relationship": {
+              "type": "foreign_key",
+              "from_column": "laporan_isi_id",
+              "to_column": "id"
+            }
+          }
+        ]
+      },
+      {
+        "table": "laporan_tembusan",
+        "columns": ["laporan_id", "satuan_kerja_group_ptr_id"],
+        "relationship": {
+          "type": "foreign_key",
+          "from_column": "laporan_id",
+          "to_column": "id"
+        }
+      },
+      {
+        "table": "laporan_aspek",
+        "columns": ["laporan_id", "referensi_id"],
+        "relationship": {
+          "type": "foreign_key",
+          "from_column": "laporan_id",
+          "to_column": "id"
+        }
+      },
+      {
+        "table": "laporan_lampiran",
+        "columns": ["id", "jenis", "file", "catatan", "realfile", "created_date", "laporan_id"],
+        "relationship": {
+          "type": "foreign_key",
+          "from_column": "laporan_id",
+          "to_column": "id"
+        }
+      },
+      {
+        "table": "laporan_masuk",
+        "columns": ["id", "laporan_id", "satuan_kerja_group_ptr_id"],
+        "relationship": {
+          "type": "foreign_key",
+          "from_column": "laporan_id",
+          "to_column": "id"
+        }
+      }
+    ]
+  },
+  "enable_logical_replication": true
+}
