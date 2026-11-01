@@ -59,6 +59,8 @@ docker-compose -f docker-compose.yml -f docker-compose.local-test.yml --profile 
 
 The smoke test checks login, both connection handlers, schema and foreign-key discovery, configuration save/readback, PGSync batch execution, and indexed documents. See [the demo guide](pgsync-admin/demo/README.md) for sample credentials, ports, and reset instructions.
 
+![Local sample flow from PostgreSQL customers and orders through Schema Builder to the OpenSearch local_customers index](docs/images/local-pg-opensearch-sample.svg)
+
 ## Run Search API separately
 
 Search API has a separate Compose definition and expects an OpenSearch endpoint configured in `.env`. The service uses TLS for its OpenSearch connection.

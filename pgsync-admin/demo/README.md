@@ -15,6 +15,8 @@ PostgreSQL is available from the host at `127.0.0.1:55432` and from the Admin co
 
 Demo PostgreSQL credentials: database `pgsync_demo`, username `pgsync_demo`, password `pgsync_demo_password`. The seed creates three customers and four orders with a foreign key from `orders.customer_id` to `customers.id`.
 
+![Sample mapping from customers to related orders, synced into the local_customers OpenSearch index](../../docs/images/local-pg-opensearch-sample.svg)
+
 ## Run the connection and sync smoke test
 
 The script logs in using the Admin credentials already configured in the backend container. It tests PostgreSQL and OpenSearch connections, discovers tables and the foreign key, creates or refreshes the sample configuration, runs PGSync batch execution, and checks that customer documents with related orders appear in OpenSearch.
